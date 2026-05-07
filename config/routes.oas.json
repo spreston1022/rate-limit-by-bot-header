@@ -47,7 +47,7 @@
             }
           },
           "policies": {
-            "inbound": []
+            "inbound": ["rate-limit-graphql"]
           }
         },
         "operationId": "new-route-655a9625"
