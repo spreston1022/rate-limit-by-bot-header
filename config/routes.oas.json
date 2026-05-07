@@ -10,7 +10,7 @@
         "pathMode": "open-api"
       },
       "get": {
-        "summary": "New Route",
+        "summary": "Bot Score Plus IP Rate Limit",
         "description": "",
         "x-zuplo-route": {
           "corsPolicy": "none",
@@ -35,7 +35,7 @@
         "pathMode": "open-api"
       },
       "get": {
-        "summary": "Bot Score Rate Limited Route",
+        "summary": "Global Bot Score Rate Limit",
         "description": "Global rate limit of 20 req/min for Akamai bot scores between 50-90",
         "x-zuplo-route": {
           "corsPolicy": "none",
