@@ -30,6 +30,29 @@
         "operationId": "84c1ad85-7586-485a-9b00-09cc0a3a98b9"
       }
     },
+    "/path-2": {
+      "x-zuplo-path": {
+        "pathMode": "open-api"
+      },
+      "get": {
+        "summary": "Bot Score Rate Limited Route",
+        "description": "Global rate limit of 20 req/min for Akamai bot scores between 50-90",
+        "x-zuplo-route": {
+          "corsPolicy": "none",
+          "handler": {
+            "export": "urlForwardHandler",
+            "module": "$import(@zuplo/runtime)",
+            "options": {
+              "baseUrl": "https://echo.zuplo.io"
+            }
+          },
+          "policies": {
+            "inbound": ["rate-limit-bot-score"]
+          }
+        },
+        "operationId": "path-2-bot-score"
+      }
+    },
     "/graphql": {
       "x-zuplo-path": {
         "pathMode": "open-api"
