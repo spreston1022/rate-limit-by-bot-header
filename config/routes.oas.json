@@ -53,6 +53,29 @@
         "operationId": "path-2-bot-score"
       }
     },
+    "/path-3": {
+      "x-zuplo-path": {
+        "pathMode": "open-api"
+      },
+      "get": {
+        "summary": "Overall Rate with Bot Score Filter",
+        "description": "Blocks bot scores above 50 when overall request rate exceeds 5 req/min",
+        "x-zuplo-route": {
+          "corsPolicy": "none",
+          "handler": {
+            "export": "urlForwardHandler",
+            "module": "$import(@zuplo/runtime)",
+            "options": {
+              "baseUrl": "https://echo.zuplo.io"
+            }
+          },
+          "policies": {
+            "inbound": ["overall-rate-bot-score"]
+          }
+        },
+        "operationId": "path-3-overall-rate-bot-score"
+      }
+    },
     "/graphql": {
       "x-zuplo-path": {
         "pathMode": "open-api"

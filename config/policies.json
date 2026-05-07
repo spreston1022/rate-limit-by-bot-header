@@ -50,6 +50,15 @@
       },
       "name": "rate-limit-bot-score",
       "policyType": "rate-limit-inbound"
+    },
+    {
+      "handler": {
+        "export": "default",
+        "module": "$import(./modules/overall-rate-bot-score-policy)",
+        "options": {}
+      },
+      "name": "overall-rate-bot-score",
+      "policyType": "custom-code-inbound"
     }
   ]
 }
