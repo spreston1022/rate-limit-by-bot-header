@@ -7,40 +7,6 @@
         "options": {
           "rateLimitBy": "function",
           "requestsAllowed": 3,
-          "timeWindowMinutes": 4,
-          "identifier": {
-            "module": "$import(./modules/rate-limiter)",
-            "export": "rateLimitKey"
-          }
-        }
-      },
-      "name": "rate-limit-inbound",
-      "policyType": "rate-limit-inbound"
-    },
-    {
-      "handler": {
-        "export": "RateLimitInboundPolicy",
-        "module": "$import(@zuplo/runtime)",
-        "options": {
-          "rateLimitBy": "function",
-          "requestsAllowed": 3,
-          "timeWindowMinutes": 4,
-          "identifier": {
-            "module": "$import(./modules/rate-limiter)",
-            "export": "rateLimitKey"
-          }
-        }
-      },
-      "name": "rate-limit-inbound-1",
-      "policyType": "rate-limit-inbound"
-    },
-    {
-      "handler": {
-        "export": "RateLimitInboundPolicy",
-        "module": "$import(@zuplo/runtime)",
-        "options": {
-          "rateLimitBy": "function",
-          "requestsAllowed": 3,
           "timeWindowMinutes": 1,
           "identifier": {
             "module": "$import(./modules/bot-id-and-tls)",
@@ -77,7 +43,7 @@
           "requestsAllowed": 1000,
           "timeWindowMinutes": 1,
           "identifier": {
-            "module": "$import(./modules/bot-score-limiter)",
+            "module": "$import(./modules/global-bot-score-rate-limiter)",
             "export": "rateLimitKey"
           }
         }
