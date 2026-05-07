@@ -50,6 +50,23 @@
       },
       "name": "rate-limit-inbound-2",
       "policyType": "rate-limit-inbound"
+    },
+    {
+      "handler": {
+        "export": "RateLimitInboundPolicy",
+        "module": "$import(@zuplo/runtime)",
+        "options": {
+          "rateLimitBy": "function",
+          "requestsAllowed": 1000,
+          "timeWindowMinutes": 1,
+          "identifier": {
+            "module": "$import(./modules/graphql-operation-limiter)",
+            "export": "rateLimitKey"
+          }
+        }
+      },
+      "name": "rate-limit-graphql",
+      "policyType": "rate-limit-inbound"
     }
   ]
 }
