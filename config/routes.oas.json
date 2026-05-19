@@ -1,17 +1,119 @@
 {
-  "openapi": "3.1.0",
   "info": {
+    "title": "Echo API",
     "version": "1.0.0",
-    "title": "My Zuplo API"
+    "description": "A simple echo endpoint used for testing and demonstration purposes.\nReturns the full request details including headers, query parameters, and body.\nHosted at echo.zuplo.io — commonly used as a mock backend in Zuplo gateway demos.\n"
   },
+  "openapi": "3.1.0",
+  "components": {
+    "schemas": {
+      "EchoResponse": {
+        "type": "object",
+        "description": "Full echo of the incoming request",
+        "properties": {
+          "method": {
+            "type": "string",
+            "description": "HTTP method of the request",
+            "example": "GET"
+          },
+          "url": {
+            "type": "string",
+            "description": "Full URL of the request",
+            "example": "https://echo.zuplo.io/path-1"
+          },
+          "headers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "All request headers as key-value pairs",
+            "example": {
+              "authorization": "Bearer zpka_abc123",
+              "content-type": "application/json"
+            }
+          },
+          "query": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Query string parameters as key-value pairs",
+            "example": {
+              "foo": "bar"
+            }
+          },
+          "body": {
+            "description": "Request body — null for GET requests",
+            "nullable": true,
+            "type": "null"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "Bearer token — your Zuplo API key"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://echo.zuplo.io",
+      "description": "Zuplo echo service"
+    }
+  ],
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
   "paths": {
     "/path-1": {
       "x-zuplo-path": {
         "pathMode": "open-api"
       },
       "get": {
-        "summary": "Bot Score Plus IP Rate Limit",
-        "description": "",
+        "summary": "Rate Limit by Bot Score and JA4",
+        "description": "Returns the full details of the incoming GET request as JSON — headers, query parameters, URL, and method.",
+        "operationId": "84c1ad85-7586-485a-9b00-09cc0a3a98b9",
+        "parameters": [
+          {
+            "name": "any",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Any query parameters are echoed back in the response"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Echo response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EchoResponse"
+                },
+                "example": {
+                  "method": "GET",
+                  "url": "https://echo.zuplo.io/path-1?foo=bar",
+                  "headers": {
+                    "authorization": "Bearer zpka_abc123",
+                    "user-agent": "curl/7.88.1",
+                    "accept": "*/*"
+                  },
+                  "query": {
+                    "foo": "bar"
+                  },
+                  "body": null
+                }
+              }
+            }
+          }
+        },
         "x-zuplo-route": {
           "corsPolicy": "none",
           "handler": {
@@ -26,8 +128,7 @@
               "rate-limit-inbound-2"
             ]
           }
-        },
-        "operationId": "84c1ad85-7586-485a-9b00-09cc0a3a98b9"
+        }
       }
     },
     "/path-2": {
@@ -47,13 +148,15 @@
             }
           },
           "policies": {
-            "inbound": ["rate-limit-bot-score"]
+            "inbound": [
+              "rate-limit-bot-score"
+            ]
           }
         },
         "operationId": "path-2-bot-score"
       }
     },
-    "/path-3": {
+    "/path-4": {
       "x-zuplo-path": {
         "pathMode": "open-api"
       },
@@ -70,7 +173,9 @@
             }
           },
           "policies": {
-            "inbound": ["overall-rate-bot-score"]
+            "inbound": [
+              "overall-rate-bot-score"
+            ]
           }
         },
         "operationId": "path-3-overall-rate-bot-score"
@@ -93,10 +198,52 @@
             }
           },
           "policies": {
-            "inbound": ["rate-limit-graphql"]
+            "inbound": [
+              "rate-limit-graphql"
+            ]
           }
         },
         "operationId": "new-route-655a9625"
+      }
+    },
+    "/mcp": {
+      "x-zuplo-path": {
+        "pathMode": "open-api"
+      },
+      "post": {
+        "summary": "MCP Server",
+        "description": "Default MCP Server",
+        "x-zuplo-route": {
+          "corsPolicy": "none",
+          "handler": {
+            "export": "mcpServerHandler",
+            "module": "$import(@zuplo/runtime)",
+            "options": {
+              "operations": [
+                {
+                  "file": "./config/routes.oas.json",
+                  "id": "84c1ad85-7586-485a-9b00-09cc0a3a98b9"
+                },
+                {
+                  "file": "./config/routes.oas.json",
+                  "id": "path-2-bot-score"
+                },
+                {
+                  "file": "./config/routes.oas.json",
+                  "id": "path-3-overall-rate-bot-score"
+                },
+                {
+                  "file": "./config/routes.oas.json",
+                  "id": "new-route-655a9625"
+                }
+              ]
+            }
+          },
+          "policies": {
+            "inbound": []
+          }
+        },
+        "operationId": "549a41b4-7d2a-46cb-b45b-96e05622d74d"
       }
     }
   }
