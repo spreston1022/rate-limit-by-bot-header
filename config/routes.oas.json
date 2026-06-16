@@ -171,7 +171,7 @@
         "operationId": "new-route-655a9625"
       }
     },
-    "/path-4": {
+    "/path-5": {
       "x-zuplo-path": {
         "pathMode": "open-api"
       },
@@ -188,7 +188,9 @@
             }
           },
           "policies": {
-            "inbound": []
+            "inbound": [
+              "rate-limit-inbound-3"
+            ]
           }
         },
         "operationId": "rest-1dbc8249"
