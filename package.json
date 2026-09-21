@@ -7,13 +7,15 @@
     "dev": "zuplo dev",
     "test": "zuplo test",
     "typecheck": "tsc --noEmit",
-    "docs": "zuplo docs"
+    "docs": "zuplo docs",
+    "generate-demo-jwt": "node scripts/generate-demo-jwt.mjs"
   },
   "dependencies": {
     "zuplo": "^6"
   },
   "devDependencies": {
     "@types/node": "^22",
+    "jose": "^5",
     "typescript": "^5"
   },
   "workspaces": [

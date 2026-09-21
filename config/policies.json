@@ -84,6 +84,37 @@
       },
       "name": "rate-limit-inbound-3",
       "policyType": "rate-limit-inbound"
+    },
+    {
+      "handler": {
+        "export": "OpenIdJwtInboundPolicy",
+        "module": "$import(@zuplo/runtime)",
+        "options": {
+          "issuer": "https://demo.zuplo.io/",
+          "audience": "rate-limit-by-role-demo",
+          "secret": "dummy-demo-hmac-secret-do-not-use-in-prod-1234567890",
+          "allowUnauthenticatedRequests": false
+        }
+      },
+      "name": "jwt-auth-role-demo",
+      "policyType": "open-id-jwt-auth-inbound"
+    },
+    {
+      "handler": {
+        "export": "RateLimitInboundPolicy",
+        "module": "$import(@zuplo/runtime)",
+        "options": {
+          "rateLimitBy": "function",
+          "requestsAllowed": 1,
+          "timeWindowMinutes": 1,
+          "identifier": {
+            "module": "$import(./modules/role-rate-limiter)",
+            "export": "rateLimitKey"
+          }
+        }
+      },
+      "name": "rate-limit-by-role",
+      "policyType": "rate-limit-inbound"
     }
   ]
 }

@@ -195,6 +195,32 @@
         },
         "operationId": "rest-1dbc8249"
       }
+    },
+    "/rate-limit-by-role": {
+      "x-zuplo-path": {
+        "pathMode": "open-api"
+      },
+      "get": {
+        "summary": "Rate Limit by JWT Role Claim",
+        "description": "Validates a bearer JWT (signed by a demo RSA key) then rate limits by the token's `role` claim. Low demo limits: admin 5/min, user 2/min, anything else (including unauthenticated-but-allowed callers) 1/min.",
+        "x-zuplo-route": {
+          "corsPolicy": "none",
+          "handler": {
+            "export": "urlForwardHandler",
+            "module": "$import(@zuplo/runtime)",
+            "options": {
+              "baseUrl": "https://echo.zuplo.io"
+            }
+          },
+          "policies": {
+            "inbound": [
+              "jwt-auth-role-demo",
+              "rate-limit-by-role"
+            ]
+          }
+        },
+        "operationId": "rate-limit-by-role"
+      }
     }
   }
 }
