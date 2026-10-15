@@ -171,31 +171,6 @@
         "operationId": "new-route-655a9625"
       }
     },
-    "/path-5": {
-      "x-zuplo-path": {
-        "pathMode": "open-api"
-      },
-      "get": {
-        "summary": "New REST Operation",
-        "description": "",
-        "x-zuplo-route": {
-          "corsPolicy": "none",
-          "handler": {
-            "export": "urlForwardHandler",
-            "module": "$import(@zuplo/runtime)",
-            "options": {
-              "baseUrl": "https://echo.zuplo.io"
-            }
-          },
-          "policies": {
-            "inbound": [
-              "rate-limit-inbound-3"
-            ]
-          }
-        },
-        "operationId": "rest-1dbc8249"
-      }
-    },
     "/rate-limit-by-role": {
       "x-zuplo-path": {
         "pathMode": "open-api"
@@ -220,92 +195,6 @@
           }
         },
         "operationId": "rate-limit-by-role"
-      }
-    },
-    "/path-10": {
-      "get": {
-        "summary": "Echo a GET or POST request",
-        "description": "Returns the full details of the incoming GET request as JSON — headers, query parameters, URL, and method.",
-        "operationId": "echo-get",
-        "parameters": [
-          {
-            "name": "any",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            },
-            "description": "Any query parameters are echoed back in the response"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Echo response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EchoResponse"
-                },
-                "example": {
-                  "method": "GET",
-                  "url": "https://echo.zuplo.io/path-10?foo=bar",
-                  "headers": {
-                    "authorization": "Bearer zpka_abc123",
-                    "user-agent": "curl/7.88.1",
-                    "accept": "*/*"
-                  },
-                  "query": {
-                    "foo": "bar"
-                  },
-                  "body": null
-                }
-              }
-            }
-          }
-        },
-        "x-zuplo-route": {
-          "corsPolicy": "none",
-          "handler": {
-            "export": "urlForwardHandler",
-            "module": "$import(@zuplo/runtime)",
-            "options": {
-              "baseUrl": "https://echo.zuplo.io"
-            }
-          },
-          "policies": {
-            "inbound": [
-              "api-key-inbound-1",
-              "rate-limit-inbound-4"
-            ]
-          }
-        }
-      }
-    },
-    "/mcp": {
-      "x-zuplo-path": {
-        "pathMode": "open-api"
-      },
-      "post": {
-        "summary": "MCP Server",
-        "description": "Default MCP Server",
-        "x-zuplo-route": {
-          "corsPolicy": "none",
-          "handler": {
-            "export": "mcpServerHandler",
-            "module": "$import(@zuplo/runtime)",
-            "options": {
-              "operations": [
-                {
-                  "file": "./config/routes.oas.json",
-                  "id": "echo-get"
-                }
-              ]
-            }
-          },
-          "policies": {
-            "inbound": []
-          }
-        },
-        "operationId": "mcp-3e368de7"
       }
     }
   }
