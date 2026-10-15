@@ -1,7 +1,7 @@
 import { ZuploContext, ZuploRequest } from "@zuplo/runtime";
 
 const OPERATION_LIMITS: Record<string, { requestsAllowed: number; timeWindowMinutes: number }> = {
-  UserLogin: { requestsAllowed: 10, timeWindowMinutes: 1 },
+  UserLogin: { requestsAllowed: 5, timeWindowMinutes: 1 },
   GetPricing: { requestsAllowed: 20, timeWindowMinutes: 1 },
 };
 
